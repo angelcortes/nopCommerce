@@ -51,7 +51,6 @@
                 }
                 @{
                     var addToCartText = "";
-                    var showDate = false;
                     if (Model.UpdatedShoppingCartItemId > 0 && Model.UpdateShoppingCartItemType.HasValue && Model.UpdateShoppingCartItemType.Value == ShoppingCartType.ShoppingCart)
                     {
                         addToCartText = T("ShoppingCart.AddToCart.Update").Text;
@@ -66,13 +65,12 @@
                         if (Model.AvailableForPreOrder)
                         {
                             addToCartText = T("ShoppingCart.PreOrder").Text;
-                            showDate = catalogSettings.DisplayDatePreOrderAvailability;
                         }
                     }
                     <input type="button" id="add-to-cart-button-@Model.ProductId" class="button-1 add-to-cart-button" value="@addToCartText" data-productid="@Model.ProductId" onclick="AjaxCart.addproducttocart_details('@Url.RouteUrl("AddProductToCart-Details", new {productId = Model.ProductId, shoppingCartTypeId = (int) ShoppingCartType.ShoppingCart})', '#product-details-form');return false;"/>
                 }
             </div>
-            if (showDate && !string.IsNullOrEmpty(Model.PreOrderAvailabilityStartDateTimeUserTime))
+            if (!string.IsNullOrEmpty(Model.PreOrderAvailabilityStartDateTimeUserTime))
             {
                 <div>
                     <label>@T("ShoppingCart.PreOrderAvailability"):</label>
